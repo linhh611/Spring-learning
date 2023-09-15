@@ -1,6 +1,6 @@
-package app.controller;
+package app;
 
-import app.model.Todo;
+import app.Todo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
