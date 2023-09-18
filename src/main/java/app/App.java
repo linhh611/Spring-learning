@@ -1,24 +1,27 @@
 package app;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.StandardEnvironment;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class App {
 
+    @Autowired
+    MyHouse myHouse;
+
     public static void main(String[] args) {
-        //SpringApplication.run(App.class, args);
+        SpringApplication.run(App.class, args);
+    }
 
-        SpringApplication application = new SpringApplication((App.class));
-        ConfigurableEnvironment environment = new StandardEnvironment();
-
-        environment.setActiveProfiles("local");
-        application.setEnvironment(environment);
-        ApplicationContext context = application.run(args);
-        LocalDatasource localDatasource = context.getBean(LocalDatasource.class);
-        System.out.println(localDatasource);
+    @Bean
+    CommandLineRunner run() {
+        return args -> {
+            System.out.println(Thread.currentThread().getName() + ": khai bao ten");
+            myHouse.rangDoorbellBy("Linh");
+            System.out.println(Thread.currentThread().getName()+ ": name");
+        };
     }
 }
